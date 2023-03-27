@@ -1,0 +1,54 @@
+﻿@using FolhaDePonto.Models;
+
+@{
+    ViewData["Title"] = "Minha Página Principal";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <nav class="navbar-nav ml-auto">
+        <ul>
+            <li><a href="@Url.Action("Index", "Perfil")">Perfil</a></li>
+            <li><a href="@Url.Action("CadastrarUsuario", "Usuario")">Cadastrar Usuário</a></li>
+            <li><a href="@Url.Action("RegistrarPonto", "RegistroDePonto")">Registrar Ponto</a></li>
+            <li><a href="@Url.Action("Logout", "Login")">Deslogar</a></li>
+        </ul>
+    </nav>
+    <!-- Aqui você pode exibir os registros atuais do mês -->
+    <h2>Registros do mês atual:</h2>
+
+    <@if (ViewData["RegistrosDePonto"] != null)
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Hora Entarada</th>
+                    <th>Horas Almoço</th>
+                    <th>Horas Retorno do almoço</th>
+                    <th>Horas Saida</th>
+                    <th>Horas Trabalhadas</th>
+                    <th>Horas Extras</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var registro in (IEnumerable<RegistroDePontoModel>)ViewData["RegistrosDePonto"])
+                {
+                    <tr>
+                        <td>@registro.Data.ToShortDateString()</td>
+                        <td>@registro.HoraEntrada</td>
+                        <td>@registro.HoraAlmoco</td>
+                        <td>@registro.HoraRetornoAlmoco</td>
+                        <td>@registro.HoraSaida</td>
+                        <td>@registro.TotalHorasTrabalhadas</td>
+                        <td>@registro.HorasExtras</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</body>
+</html>

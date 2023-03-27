@@ -1,0 +1,104 @@
+﻿@model List<RegistroDePontoModel>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <nav class="navbar-nav ml-auto">
+        <ul>
+            <li><a href="@Url.Action("Index", "Perfil")">Perfil</a></li>
+            <li><a href="@Url.Action("CadastrarUsuario", "Usuario")">Cadastrar Usuário</a></li>
+            <li><a href="@Url.Action("RegistrarPonto", "RegistroDePonto")">Registrar Ponto</a></li>
+            <li><a href="@Url.Action("Logout", "Login")">Deslogar</a></li>
+        </ul>
+    </nav>
+
+    <h2>Registros de Ponto</h2>
+
+    <!-- Formulário para adicionar um novo registro de ponto -->
+    @using (Html.BeginForm("AdicionarRegistroDePonto", "Ponto"))
+    {
+        <div>
+            @Html.LabelFor(model => model.Data)
+            @Html.EditorFor(model => model.Data)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.HoraEntrada)
+            @Html.EditorFor(model => model.HoraEntrada)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.HoraAlmoco)
+            @Html.EditorFor(model => model.HoraAlmoco)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.HoraRetornoAlmoco)
+            @Html.EditorFor(model => model.HoraRetornoAlmoco)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.HoraSaida)
+            @Html.EditorFor(model => model.HoraSaida)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.Observacao)
+            @Html.EditorFor(model => model.Observacao)
+        </div>
+        <div>
+            <input type="submit" value="Adicionar Registro">
+        </div>
+    }
+
+    <!-- Tabela para exibir os registros de ponto -->
+    <table>
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Hora Entrada</th>
+                <th>Hora Almoço</th>
+                <th>Hora Retorno</th>
+                <th>Hora Saída</th>
+                <th>Observações</th>
+                <th>Opções</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ponto in Model)
+            {
+                <tr>
+                    <td>@ponto.Data.ToShortDateString()</td>
+                    <td>@ponto.HoraEntrada.ToShortTimeString()</td>
+                    <td>@ponto.HoraAlmoco.ToShortTimeString()</td>
+                    <td>@ponto.HoraRetornoAlmoco.ToShortTimeString()</td>
+                    <td>@ponto.HoraSaida.ToShortTimeString()</td>
+                    <td>@ponto.Observacao</td>
+                    <td>
+                        @using (Html.BeginForm("EditarRegistroDePonto", "Ponto"))
+                        {
+                            <input type="hidden" name="id" value="@ponto.Id" />
+                            <input type="submit" value="Editar" />
+                        }
+
+                        @using (Html.BeginForm("ExcluirRegistroDePonto", "Ponto"))
+                        {
+                            <input type="hidden" name="id" value="@ponto.Id" />
+                            <input type="submit" value="Excluir" />
+                        }
+
+                        @using (Html.BeginForm("GerarRelatorioDePonto", "Ponto"))
+                        {
+                            <input type="hidden" name="id" value="@ponto.Id" />
+                            <input type="submit" value="Gerar Relatório" />
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- Exibe o total de horas extras e o total de horas realizadas -->
+    <p>Total de Horas Realizadas: @ViewData["TotalHorasRealizadas"]</p>
+    <p>Total de Horas Extras: @ViewData["TotalHorasExtras"]</p>
+
+</body>
+</html>

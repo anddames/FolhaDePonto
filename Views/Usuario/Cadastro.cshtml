@@ -1,0 +1,43 @@
+﻿@model UsuarioModel
+@using using FolhaDePonto.Models
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Cadastrar Usuário</title>
+</head>
+<body>
+    <nav class="navbar-nav ml-auto">
+        <ul>
+            <li><a href="@Url.Action("Index", "Perfil")">Perfil</a></li>
+            <li><a href="@Url.Action("CadastrarUsuario", "Usuario")">Cadastrar Usuário</a></li>
+            <li><a href="@Url.Action("RegistrarPonto", "RegistroDePonto")">Registrar Ponto</a></li>
+            <li><a href="@Url.Action("Logout", "Login")">Deslogar</a></li>
+        </ul>
+    </nav>
+
+    <h1>Cadastrar novo usuário</h1>
+    
+    <form method="post" action="/Usuario/Cadastrar">
+        @Html.LabelFor(model => model.Nome)
+        @Html.TextBoxFor(model => model.Nome)
+
+        @Html.LabelFor(model => model.Email)
+        @Html.TextBoxFor(model => model.Email)
+
+        @Html.LabelFor(model => model.Senha)
+        @Html.PasswordFor(model => model.Senha)
+
+        @Html.LabelFor(model => model.ConfirmarSenha)
+        @Html.PasswordFor(model => model.ConfirmarSenha)
+
+        @Html.LabelFor(model => model.Telefone)
+        @Html.TextBoxFor(model => model.Telefone)
+
+        <input type="submit" value="Cadastrar">
+    </form>
+
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+﻿@model UsuarioModel
+@using using FolhaDePonto.Models
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Perfil do Usuário</title>
+</head>
+<body>
+    <nav class="navbar-nav ml-auto">
+        <ul>
+            <li><a href="@Url.Action("Index", "Perfil")">Perfil</a></li>
+            <li><a href="@Url.Action("CadastrarUsuario", "Usuario")">Cadastrar Usuário</a></li>
+            <li><a href="@Url.Action("RegistrarPonto", "RegistroDePonto")">Registrar Ponto</a></li>
+            <li><a href="@Url.Action("Logout", "Login")">Deslogar</a></li>
+        </ul>
+    </nav>
+
+    <h2>@Model.Nome</h2>
+
+    <p>E-mail: @Mode.Email</p>
+
+    <p>Telefone: @Model.Telefone</p>
+
+    <p>Telefone: @Model.Cargo</p>
+
+    <p>Telefone: @Model.CargaHorariaDiaria</p>
+
+    <a href="@Url.Action("Editar", "Usuario", new { id = Model.Id })">Editar perfil</a>
+
+    <a href="@Url.Action("Excluir", "Usuario", new { id = Model.Id })">Excluir perfil</a>
+</body>
+</html>
